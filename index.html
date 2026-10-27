@@ -113,6 +113,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid 
         <button data-tab="quiz">Quiz</button>
         <button data-tab="review">Weak letters</button>
         <button data-tab="words">Words &amp; signs</button>
+        <button data-tab="wordquiz">Word quiz</button>
         <button data-tab="stats">Progress</button>
       </nav>
       <span class="voice" id="voiceInfo"></span>
@@ -147,7 +148,7 @@ const BASE = {
  т:{u:"Т",name:"тэ",sound:"t as in top",ipa:"t",group:"friend",ru:[["там","tam","there"],["ты","ty","you"],["кот","kot","cat"]],tip:"Cursive т looks like Latin m. Watch for it."},
  у:{u:"У",name:"у",sound:"oo as in moon",ipa:"u",group:"fake",ru:[["ум","um","mind"],["утро","utra","morning"],["суп","sup","soup"]],tip:"Looks like Y but is OO."},
  ф:{u:"Ф",name:"эф",sound:"f as in fun",ipa:"f",group:"new",ru:[["фото","fota","photo"],["фильм","film","film"],["кофе","kofe","coffee"]],tip:"Rare in native words, common in loanwords."},
- х:{u:"Х",name:"ха",sound:"kh as in loch",ipa:"x",group:"fake",ru:[["хлеб","khlyep","bread"],["хорошо","kharasho","good"],["ухо","ukha","ear"]],tip:"Looks like X but is the Scottish 'loch' sound. Never 'ks'."},
+ х:{u:"Х",name:"ха",sound:"harsh h from the throat (German Bach)",ipa:"x",group:"fake",ru:[["хлеб","khlyep","bread"],["хорошо","kharasho","good"],["ухо","ukha","ear"]],tip:"Looks like X but is a rough h from the back of the throat, as in German 'Bach'. Never 'ks'."},
  ц:{u:"Ц",name:"цэ",sound:"ts as in cats",ipa:"ts",group:"new",ru:[["цирк","tsirk","circus"],["центр","tsentr","centre"],["отец","atyets","father"]],tip:"One sound, like German z."},
  ч:{u:"Ч",name:"че",sound:"ch as in chat",ipa:"tɕ",group:"new",ru:[["чай","chay","tea"],["час","chas","hour"],["ночь","noch","night"]],tip:"Looks like a 4. In что and конечно it is pronounced 'sh'."},
  ш:{u:"Ш",name:"ша",sound:"sh as in shop",ipa:"ʂ",group:"new",ru:[["шар","shar","ball"],["школа","shkola","school"],["наш","nash","our"]],tip:"Hard sh, tongue curled back."},
@@ -182,7 +183,7 @@ const LANGS = {
     ү:{u:"Ү",name:"ү",sound:"ü as in German über",ipa:"y",group:"extra",tip:"Say 'ee' with rounded lips. Front partner of ұ."},
     һ:{u:"Һ",name:"һа",sound:"h as in hat",ipa:"h",group:"extra",tip:"Soft breathy h. Rare; mostly Arabic/Persian loanwords."},
     і:{u:"І",name:"і",sound:"i as in bit (short)",ipa:"ɪ",group:"extra",tip:"Short front i, the partner of ы. Russian и is used mainly in loanwords."}},
-   sounds:{ж:"j as in jam",у:"w / oo",е:"ye at word start, e elsewhere",и:"ee (loanwords) / iy",х:"kh as in loch",ч:"ch (loanwords)"},
+   sounds:{ж:"j as in jam",у:"w / oo",е:"ye at word start, e elsewhere",и:"ee (loanwords) / iy",х:"harsh h from the throat",ч:"ch (loanwords)"},
    tips:{ж:"In Kazakh ж sounds like English j (жақсы = jaqsy), not Russian zh.",у:"Usually a 'w' glide (тау = taw). As a vowel it is the long oo.",е:"At the start of a word it is 'ye' (ел = yel); after a consonant plain 'e'.",ч:LOAN,щ:LOAN,ъ:LOAN,ь:LOAN,ц:LOAN,ё:LOAN,ю:LOAN,ф:LOAN,в:LOAN,ы:"Short back i, as in 'bit' but deeper. Very common."},
    words:{а:[["ана","ana","mother"],["алма","alma","apple"],["ат","at","horse"]],ә:[["әке","äke","father"],["сәлем","sälem","hello"],["әже","äje","grandmother"]],б:[["бала","bala","child"],["бір","bir","one"],["бес","bes","five"]],в:[["вагон","vagon","carriage"],["велосипед","velosiped","bicycle"]],г:[["гүл","gül","flower"],["газет","gazet","newspaper"],["егер","eger","if"]],ғ:[["ғылым","ğylym","science"],["тағам","tağam","food"],["аға","ağa","older brother"]],д:[["дос","dos","friend"],["дала","dala","steppe"],["дәптер","däpter","notebook"]],е:[["ел","el","country"],["ет","et","meat"],["екі","eki","two"]],ё:[["ёлка","yolka","fir tree"]],ж:[["жақсы","jaqsy","good"],["жол","jol","road"],["жер","jer","earth / land"]],з:[["зат","zat","thing"],["заң","zañ","law"],["көз","köz","eye"]],и:[["ит","it","dog"],["иә","iä","yes"],["киім","kiim","clothes"]],й:[["ай","ai","moon / month"],["үй","üi","house"],["той","toi","feast"]],к:[["кітап","kitap","book"],["күн","kün","sun / day"],["көл","köl","lake"]],қ:[["қала","qala","city"],["қыз","qyz","girl"],["қара","qara","black"]],л:[["лимон","limon","lemon"],["алтын","altyn","gold"],["елу","elu","fifty"]],м:[["мектеп","mektep","school"],["мысық","mysyq","cat"],["мен","men","I"]],н:[["нан","nan","bread"],["нөл","nöl","zero"],["нар","nar","camel"]],ң:[["таң","tañ","dawn"],["сенің","seniñ","your"],["мың","myñ","thousand"]],о:[["он","on","ten"],["от","ot","fire"],["орман","orman","forest"]],ө:[["өзен","özen","river"],["өмір","ömir","life"],["көз","köz","eye"]],п:[["пойыз","poiyz","train"],["пияз","piyaz","onion"],["апа","apa","older sister / aunt"]],р:[["рахмет","rahmet","thank you"],["радио","radio","radio"],["қара","qara","black"]],с:[["су","su","water"],["сүт","süt","milk"],["сен","sen","you"]],т:[["тау","tau","mountain"],["тіл","til","language"],["тұз","tūz","salt"]],у:[["су","su","water"],["тау","tau","mountain"],["оқу","oqu","to read / study"]],ұ:[["ұл","ūl","son"],["тұз","tūz","salt"],["құс","qūs","bird"]],ү:[["үй","üi","house"],["гүл","gül","flower"],["сүт","süt","milk"]],ф:[["фильм","film","film"],["футбол","futbol","football"]],х:[["хат","hat","letter (mail)"],["хабар","habar","news"],["халық","halyq","people"]],һ:[["гауһар","gauhar","diamond"],["жиһаз","jihaz","furniture"],["қаһарман","qaharman","hero"]],ц:[["цирк","tsirk","circus"]],ч:[["чемодан","chemodan","suitcase"]],ш:[["шай","şai","tea"],["шаш","şaş","hair"],["бас","bas","head"]],щ:[["борщ","borshch","borscht"]],ъ:[["объект","obyekt","object"]],ы:[["ыстық","ystyq","hot"],["қыз","qyz","girl"],["мысық","mysyq","cat"]],і:[["іні","ini","younger brother"],["бір","bir","one"],["кітап","kitap","book"]],ь:[["альбом","albom","album"]],э:[["экран","ekran","screen"],["электр","elektr","electricity"]],ю:[["юрист","yurist","lawyer"]],я:[["яғни","yağni","that is / i.e."],["январь","yanvar","January (loan)"]]},
    signs:[["КІРУ","kiru","entrance"],["ШЫҒУ","şyğu","exit"],["ДӘРІХАНА","därihana","pharmacy"],["ДҮКЕН","düken","shop"],["АШЫҚ","aşyq","open"],["ЖАБЫҚ","jabyq","closed"],["ӘУЕЖАЙ","äuejai","airport"],["ВОКЗАЛ","vokzal","railway station"],["МЕЙРАМХАНА","meiramhana","restaurant"],["АУРУХАНА","auruhana","hospital"],["ПОЛИЦИЯ","politsiya","police"],["ДӘРЕТХАНА","därethana","toilet"]],
@@ -206,9 +207,9 @@ const LANGS = {
     ў:{u:"Ў",name:"ў",sound:"o as in go (short)",ipa:"o",group:"extra",tip:"Latin oʻ. Plain o sound. Uzbek о (without the hook) is the 'o' in 'hot'."},
     қ:{u:"Қ",name:"қа",sound:"k deep in the throat",ipa:"q",group:"extra",tip:"Latin q. Like k but further back."},
     ғ:{u:"Ғ",name:"ға",sound:"soft gargled g (French r)",ipa:"ʁ",group:"extra",tip:"Latin gʻ. Voiced partner of х."},
-    ҳ:{u:"Ҳ",name:"ҳа",sound:"h as in hat",ipa:"h",group:"extra",tip:"Latin h. Plain breathy h; х is the rougher 'loch' sound (Latin x)."}},
+    ҳ:{u:"Ҳ",name:"ҳа",sound:"h as in hat",ipa:"h",group:"extra",tip:"Latin h. Plain breathy h; х is the rougher throat h (Latin x)."}},
    sounds:{о:"o as in hot",а:"a as in cat",ж:"j as in jam",ъ:"glottal stop / long vowel",е:"ye / e"},
-   tips:{о:"Latin o. Sounds like British 'hot', not like Russian о.",а:"Latin a. Short and bright, as in 'cat'.",ж:"Usually English j (жон = jon). In Russian loans it is zh (журнал).",ъ:"A real sound in Uzbek (Latin ʼ): a tiny stop or a lengthened vowel. маъно = ma'no.",е:"'ye' at word start (ер = yer), 'e' after a consonant.",х:"Latin x, the 'loch' sound.",ь:LOAN,ц:LOAN,ё:"Latin yo. Native sound: ёш, дарё.",ю:"Latin yu.",я:"Latin ya."},
+   tips:{о:"Latin o. Sounds like British 'hot', not like Russian о.",а:"Latin a. Short and bright, as in 'cat'.",ж:"Usually English j (жон = jon). In Russian loans it is zh (журнал).",ъ:"A real sound in Uzbek (Latin ʼ): a tiny stop or a lengthened vowel. маъно = ma'no.",е:"'ye' at word start (ер = yer), 'e' after a consonant.",х:"Latin x, the rough throat h.",ь:LOAN,ц:LOAN,ё:"Latin yo. Native sound: ёш, дарё.",ю:"Latin yu.",я:"Latin ya."},
    words:{а:[["ака","aka","older brother"],["аёл","ayol","woman"],["асал","asal","honey"]],б:[["бола","bola","child"],["беш","besh","five"],["бир","bir","one"]],в:[["вақт","vaqt","time"],["вилоят","viloyat","region"],["сув","suv","water"]],г:[["гул","gul","flower"],["гап","gap","word / talk"],["гўшт","go'sht","meat"]],д:[["дўст","do'st","friend"],["дарё","daryo","river"],["дада","dada","dad"]],е:[["ер","yer","earth"],["етти","yetti","seven"],["мен","men","I"]],ё:[["ёш","yosh","age / young"],["ёмғир","yomg'ir","rain"],["дарё","daryo","river"]],ж:[["жон","jon","soul / dear"],["жавоб","javob","answer"],["журнал","zhurnal","magazine"]],з:[["замон","zamon","era"],["зўр","zo'r","great"],["юз","yuz","face / hundred"]],и:[["ит","it","dog"],["иш","ish","work"],["икки","ikki","two"]],й:[["йўқ","yo'q","no"],["йил","yil","year"],["ой","oy","moon / month"]],к:[["китоб","kitob","book"],["кун","kun","day"],["кўл","ko'l","lake"]],л:[["лола","lola","tulip"],["лаб","lab","lip"],["олма","olma","apple"]],м:[["мактаб","maktab","school"],["мушук","mushuk","cat"],["мен","men","I"]],н:[["нон","non","bread"],["нима","nima","what"],["ун","un","flour"]],о:[["она","ona","mother"],["ота","ota","father"],["ой","oy","moon"]],п:[["пул","pul","money"],["пиёз","piyoz","onion"],["олтин","oltin","gold"]],р:[["раҳмат","rahmat","thank you"],["ранг","rang","colour"],["бир","bir","one"]],с:[["сув","suv","water"],["сут","sut","milk"],["сен","sen","you"]],т:[["тил","til","language"],["тоғ","tog'","mountain"],["туз","tuz","salt"]],у:[["уй","uy","house"],["ун","un","flour"],["сув","suv","water"]],ф:[["фильм","film","film"],["фойда","foyda","benefit"]],х:[["хат","xat","letter (mail)"],["хона","xona","room"],["яхши","yaxshi","good"]],ц:[["цирк","tsirk","circus"]],ч:[["чой","choy","tea"],["чироқ","chiroq","lamp"],["кўча","ko'cha","street"]],ш:[["шакар","shakar","sugar"],["шаҳар","shahar","city"],["беш","besh","five"]],ъ:[["маъно","ma'no","meaning"],["таъм","ta'm","taste"],["шеър","she'r","poem"]],ь:[["альбом","albom","album"]],э:[["эрта","erta","early / morning"],["эшик","eshik","door"],["эски","eski","old"]],ю:[["юз","yuz","face / hundred"],["юлдуз","yulduz","star"]],я:[["яхши","yaxshi","good"],["янги","yangi","new"],["ярим","yarim","half"]],ў:[["ўн","o'n","ten"],["ўғил","o'g'il","son"],["кўл","ko'l","lake"]],қ:[["қиз","qiz","girl"],["қора","qora","black"],["қуёш","quyosh","sun"]],ғ:[["ғоз","g'oz","goose"],["тоғ","tog'","mountain"],["боғ","bog'","garden"]],ҳ:[["ҳа","ha","yes"],["ҳаво","havo","air / weather"],["шаҳар","shahar","city"]]},
    signs:[["КИРИШ","kirish","entrance"],["ЧИҚИШ","chiqish","exit"],["ДОРИХОНА","dorixona","pharmacy"],["ДЎКОН","do'kon","shop"],["ОЧИҚ","ochiq","open"],["ЁПИҚ","yopiq","closed"],["АЭРОПОРТ","aeroport","airport"],["ВОКЗАЛ","vokzal","railway station"],["ОШХОНА","oshxona","canteen / kitchen"],["ШИФОХОНА","shifoxona","hospital"],["МИЛИЦИЯ","militsiya","police"],["ҲОЖАТХОНА","hojatxona","toilet"]],
    phrases:[["Салом","salom","Hi"],["Ассалому алайкум","assalomu alaykum","Hello (polite)"],["Раҳмат","rahmat","Thank you"],["Ҳа","ha","Yes"],["Йўқ","yo'q","No"],["Яхшимисиз?","yaxshimisiz","How are you?"],["Яхши","yaxshi","Good"],["Менинг исмим…","mening ismim","My name is…"],["Мен тушунмадим","men tushunmadim","I don't understand"],["Бу қанча туради?","bu qancha turadi","How much is this?"],["Хайр","xayr","Goodbye"]]}
@@ -279,7 +280,7 @@ const VOWELS="аеёиоуыэюяәөұүіў";
 function saySound(x){
   if(x.group==="sign"&&langCode!=="uz")return say(x.name);
   if(VOWELS.includes(x.l))return say(x.l,0.7);
-  return say(x.l+"а, "+x.l,0.7);
+  return say(x.l+"а",0.7);
 }
 
 // ================= PROGRESS =================
@@ -297,29 +298,21 @@ let tab="learn",current=null;
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;document.querySelectorAll("nav button").forEach(x=>x.setAttribute("aria-current",x===b));render()});
 document.getElementById("lang").onchange=e=>{langCode=e.target.value;try{localStorage.setItem("azbuka-lang",langCode)}catch(err){}buildLang();pickVoice();current=null;render()};
 function render(){if("speechSynthesis" in window)speechSynthesis.cancel();document.onkeydown=null;
-  if(tab==="learn")renderLearn();else if(tab==="quiz")startQuiz("mixed");else if(tab==="review")startQuiz("weak");else if(tab==="words")renderWords();else renderStats()}
+  if(tab==="learn")renderLearn();else if(tab==="quiz")startQuiz("mixed");else if(tab==="review")startQuiz("weak");else if(tab==="words")renderWords();else if(tab==="wordquiz")startWordQuiz();else renderStats()}
 function slowToggle(){const b=document.createElement("button");b.className="btn sm";b.textContent=slow?"Speed: slow":"Speed: normal";b.onclick=()=>{slow=!slow;b.textContent=slow?"Speed: slow":"Speed: normal"};return b}
 
 function renderLearn(){
   stage.innerHTML="";
   if(current){stage.appendChild(detailCard(current))}
-  else{const t=document.createElement("div");t.className="tip";t.innerHTML=`<b>${LG.name}</b> · ${LG.intro} Tap a letter to see it, hear its name, its sound and three words. Green bars show how well quizzes say you know it.`;stage.appendChild(t)}
-  const g=document.createElement("div");g.className="groups";
-  for(const key of ["friend","fake","new","extra","sign"]){
-    const items=L.filter(x=>x.group===key);if(!items.length)continue;
-    const [title,note]=GROUP_TITLES[key];
-    const sec=document.createElement("section");sec.className="group";
-    sec.innerHTML=`<h2>${title}</h2>${note?`<p class="small muted" style="margin:0 0 8px">${note}</p>`:""}`;
-    const grid=document.createElement("div");grid.className="grid";
-    items.forEach(x=>{
-      const b=document.createElement("button");b.className="tile"+(key==="extra"?" extra":"");b.setAttribute("aria-label",`${x.u}, ${x.sound}`);
-      b.innerHTML=`<span class="big">${x.u}${x.l}</span><span class="snd">${x.ipa}</span><span class="bar"><i style="width:${mastery(x.l)*100}%"></i></span>`;
-      b.onclick=()=>{current=x;renderLearn();saySound(x);window.scrollTo({top:0,behavior:"smooth"})};
-      grid.appendChild(b);
-    });
-    sec.appendChild(grid);g.appendChild(sec);
-  }
-  stage.appendChild(g);
+  else{const t=document.createElement("div");t.className="tip";t.innerHTML=`<b>${LG.name}</b> · ${LG.intro} Tap a letter to see it, hear its name, its sound and three words. Blue = letters this language adds to the Russian alphabet. Green bars = how well quizzes say you know it.`;stage.appendChild(t)}
+  const grid=document.createElement("div");grid.className="grid";
+  L.forEach(x=>{
+    const b=document.createElement("button");b.className="tile"+(x.group==="extra"?" extra":"");b.setAttribute("aria-label",`${x.u}, ${x.sound}`);
+    b.innerHTML=`<span class="big">${x.u}${x.l}</span><span class="snd">${x.ipa}</span><span class="bar"><i style="width:${mastery(x.l)*100}%"></i></span>`;
+    b.onclick=()=>{current=x;renderLearn();saySound(x)};
+    grid.appendChild(b);
+  });
+  stage.appendChild(grid);
 }
 
 function detailCard(x){
@@ -367,9 +360,27 @@ function distractors(x,k){
 function allWords(){return L.flatMap(x=>x.ex||[])}
 function startQuiz(mode){
   const letters=pickLetters(mode,10);
-  const types=["hearLetter","seeLetter","readWord","hearWord","typeLetter","readSign"];
+  const types=["hearLetter","seeLetter","readWord","hearWord","readSign","match"];
   quiz={mode,i:0,score:0,items:letters.map((x,i)=>({x,type:types[i%types.length]}))};
   shuffle(quiz.items);renderQuiz();
+}
+// Shared: show choices, let the user pick, then press Check (or Enter). Nothing locks in on the first click.
+function choiceGrid(body,opts,render,isRight,onDone){
+  const g=document.createElement("div");g.className="choices";let sel=null;
+  const check=document.createElement("button");check.className="btn primary";check.textContent="Check";check.disabled=true;check.style.marginTop="12px";
+  opts.forEach(o=>{const b=document.createElement("button");b.className="choice "+(render.cls||"");b.innerHTML=render(o);b._o=o;
+    b.onclick=()=>{if(check.hidden)return;sel=b;g.querySelectorAll(".choice").forEach(q=>q.style.borderColor=q===b?"var(--accent)":"");check.disabled=false};
+    g.appendChild(b)});
+  check.onclick=()=>{if(!sel)return;const ok=isRight(sel._o);check.hidden=true;
+    g.querySelectorAll(".choice").forEach(q=>{q.disabled=true;q.style.borderColor="";if(isRight(q._o))q.classList.add("ok")});if(!ok)sel.classList.add("no");onDone(ok)};
+  body.appendChild(g);body.appendChild(check);
+  document.onkeydown=e=>{const n=parseInt(e.key);if(n>=1&&n<=opts.length)g.querySelectorAll(".choice")[n-1].click();else if(e.key==="Enter"&&!check.hidden)check.click()};
+}
+function feedbackBar(body,ok,explain,next){
+  const f=document.createElement("div");f.className="feedback "+(ok?"ok":"no");
+  f.innerHTML=`<span><b>${ok?"Correct":"Not quite"}</b> · ${explain}</span><button class="btn primary" id="cont">Continue</button>`;
+  body.appendChild(f);const btn=f.querySelector("#cont");btn.focus();btn.onclick=next;
+  document.onkeydown=e=>{if(e.key==="Enter")btn.click()};
 }
 function renderQuiz(){
   stage.innerHTML="";document.onkeydown=null;
@@ -379,58 +390,46 @@ function renderQuiz(){
   c.innerHTML=`<div class="q-top"><span class="eyebrow">${quiz.mode==="weak"?"Weak letters":"Quiz"} · ${LG.name} · ${quiz.i+1}/${quiz.items.length}</span><div class="progress"><i style="width:${quiz.i/quiz.items.length*100}%"></i></div><span class="small muted" style="font-variant-numeric:tabular-nums">${quiz.score} ✓</span></div><div id="body"></div>`;
   stage.appendChild(c);
   const body=c.querySelector("#body");
-  let answered=false;
-  const finish=(ok,explain,speak)=>{
-    if(answered)return;answered=true;mark(x.l,ok);if(ok)quiz.score++;
-    if(speak)say(speak,0.8);
-    const f=document.createElement("div");f.className="feedback "+(ok?"ok":"no");
-    f.innerHTML=`<span><b>${ok?"Correct":"Not quite"}</b> · ${explain}</span><button class="btn primary" id="cont">Continue</button>`;
-    body.appendChild(f);const btn=f.querySelector("#cont");btn.focus();
-    btn.onclick=()=>{quiz.i++;renderQuiz()};
-    document.onkeydown=e=>{if(e.key==="Enter"){btn.click()}};
-  };
-  const choiceGrid=(opts,render,isRight,explain,speak)=>{
-    const g=document.createElement("div");g.className="choices";
-    opts.forEach(o=>{const b=document.createElement("button");b.className="choice "+(render.cls||"");b.innerHTML=render(o);b._o=o;
-      b.onclick=()=>{const ok=isRight(o);b.classList.add(ok?"ok":"no");g.querySelectorAll(".choice").forEach(q=>{q.disabled=true;if(isRight(q._o))q.classList.add("ok")});finish(ok,explain,speak)};
-      g.appendChild(b)});
-    body.appendChild(g);
-    document.onkeydown=e=>{const n=parseInt(e.key);if(n>=1&&n<=opts.length)g.querySelectorAll(".choice")[n-1].click()};
-  };
+  const next=()=>{quiz.i++;renderQuiz()};
+  const finish=(ok,explain,speak)=>{mark(x.l,ok);if(ok)quiz.score++;if(speak)say(speak,0.8);feedbackBar(body,ok,explain,next)};
   const explainLetter=`${x.u}${x.l} = ${x.sound} [${x.ipa}]`;
   const pickEx=()=>x.ex[Math.floor(Math.random()*x.ex.length)];
   if(it.type==="hearLetter"){
     body.innerHTML=`<div class="prompt"><p class="muted">Listen. Which letter is this?</p><button class="btn primary play" id="again">Play again</button></div>`;
     body.querySelector("#again").onclick=()=>saySound(x);setTimeout(()=>saySound(x),150);
-    const r=o=>`${o.u}${o.l}`;r.cls="letter";choiceGrid(shuffle([x,...distractors(x,3)]),r,o=>o===x,explainLetter);
+    const r=o=>`${o.u}${o.l}`;r.cls="letter";choiceGrid(body,shuffle([x,...distractors(x,3)]),r,o=>o===x,ok=>finish(ok,explainLetter));
   }else if(it.type==="seeLetter"){
     body.innerHTML=`<div class="prompt"><p class="muted">What sound does this letter make?</p><div class="huge">${x.u}${x.l}</div></div>`;
-    choiceGrid(shuffle([x,...distractors(x,3)]),o=>o.sound,o=>o===x,explainLetter);
+    choiceGrid(body,shuffle([x,...distractors(x,3)]),o=>o.sound,o=>o===x,ok=>finish(ok,explainLetter));
   }else if(it.type==="readWord"){
     const [ru,tr,en]=pickEx();
     body.innerHTML=`<div class="prompt"><p class="muted">Read this word. How does it sound?</p><div class="mid">${ru}</div></div>`;
     const others=shuffle(allWords().filter(e=>e[1]!==tr)).slice(0,3);
-    choiceGrid(shuffle([[ru,tr,en],...others]),o=>o[1],o=>o[1]===tr,`${ru} = ${tr} (${en})`,ru);
+    choiceGrid(body,shuffle([[ru,tr,en],...others]),o=>o[1],o=>o[1]===tr,ok=>finish(ok,`${ru} = ${tr} (${en})`,ru));
   }else if(it.type==="hearWord"){
     const [ru,tr,en]=pickEx();
     body.innerHTML=`<div class="prompt"><p class="muted">Listen. Which word did you hear?</p><button class="btn primary play" id="again">Play again</button></div>`;
     body.querySelector("#again").onclick=()=>say(ru,0.8);setTimeout(()=>say(ru,0.8),150);
     const others=shuffle(allWords().filter(e=>e[0]!==ru)).slice(0,3);
-    const r=o=>o[0];r.cls="letter";choiceGrid(shuffle([[ru,tr,en],...others]),r,o=>o[0]===ru,`${ru} = ${tr} (${en})`);
+    const r=o=>o[0];r.cls="letter";choiceGrid(body,shuffle([[ru,tr,en],...others]),r,o=>o[0]===ru,ok=>finish(ok,`${ru} = ${tr} (${en})`));
   }else if(it.type==="readSign"){
-    const signs=LG.signs;const s=signs[Math.floor(Math.random()*signs.length)];
-    body.innerHTML=`<div class="prompt"><p class="muted">You see this sign on a door. What does it mean?</p><div class="sign">${s[0]}</div></div>`;
-    const others=shuffle(signs.filter(e=>e[2]!==s[2])).slice(0,3);
-    choiceGrid(shuffle([s,...others]),o=>o[2],o=>o[2]===s[2],`${s[0]} = ${s[1]} (${s[2]})`,s[0].toLowerCase());
-  }else{
-    body.innerHTML=`<div class="prompt"><p class="muted">Type the letter for this sound (Cyrillic or Latin both work)</p><div class="mid">${x.sound}</div><p class="small muted">name: ${x.name}</p></div>
-      <div class="typein"><input id="ans" autocomplete="off" autocapitalize="off" placeholder="type here" aria-label="your answer"><button class="btn primary" id="go">Check</button></div>`;
-    const inp=body.querySelector("#ans");inp.focus();
-    const check=()=>{const v=inp.value.trim().toLowerCase();if(!v)return;
-      const accepted=[x.l,x.u.toLowerCase(),ROMAN[x.l],...(ROMAN_ALT[x.l]||[])].filter(Boolean);
-      const ok=accepted.includes(v)||accepted.map(a=>a.replace(/[^a-zа-яёЀ-ӿ]/g,"")).includes(v.replace(/[^a-zа-яёЀ-ӿ]/g,""));
-      finish(ok,explainLetter)};
-    body.querySelector("#go").onclick=check;inp.onkeydown=e=>{if(e.key==="Enter")check()};
+    const signs=LG.signs;const sg=signs[Math.floor(Math.random()*signs.length)];
+    body.innerHTML=`<div class="prompt"><p class="muted">You see this sign on a door. What does it mean?</p><div class="sign">${sg[0]}</div></div>`;
+    const others=shuffle(signs.filter(e=>e[2]!==sg[2])).slice(0,3);
+    choiceGrid(body,shuffle([sg,...others]),o=>o[2],o=>o[2]===sg[2],ok=>finish(ok,`${sg[0]} = ${sg[1]} (${sg[2]})`,sg[0].toLowerCase()));
+  }else{ // match pairs: letter ↔ its sound (Duolingo-style letter practice)
+    const set=shuffle([x,...distractors(x,3)]);
+    body.innerHTML=`<div class="prompt"><p class="muted">Match each letter to its sound. Tap a letter, then a sound.</p></div><div class="choices" id="mg"></div>`;
+    const mg=body.querySelector("#mg");let pickL=null,pickS=null,wrong=0,done=0;
+    const left=shuffle([...set]),right=shuffle([...set]);
+    const mk=(o,side)=>{const b=document.createElement("button");b.className="choice"+(side==="L"?" letter":"");b.innerHTML=side==="L"?`${o.u}${o.l}`:o.sound;b._o=o;b._side=side;
+      b.onclick=()=>{if(b.disabled)return;if(side==="L"){pickL&&(pickL.style.borderColor="");pickL=b}else{pickS&&(pickS.style.borderColor="");pickS=b}b.style.borderColor="var(--accent)";
+        if(pickL&&pickS){const ok=pickL._o===pickS._o;const a=pickL,c2=pickS;pickL=pickS=null;
+          if(ok){[a,c2].forEach(q=>{q.classList.add("ok");q.disabled=true;q.style.borderColor=""});saySound(a._o);done++;
+            if(done===set.length){const ok2=wrong===0;set.forEach(y=>mark(y.l,ok2));if(ok2)quiz.score++;feedbackBar(body,ok2,ok2?"All pairs matched":`${wrong} wrong tap${wrong>1?"s":""}`,next)}}
+          else{wrong++;[a,c2].forEach(q=>{q.classList.add("no");setTimeout(()=>{q.classList.remove("no");q.style.borderColor=""},500)})}}};
+      return b};
+    for(let i=0;i<set.length;i++){mg.appendChild(mk(left[i],"L"));mg.appendChild(mk(right[i],"S"))}
   }
 }
 function renderQuizEnd(){
@@ -462,9 +461,9 @@ function renderWords(){
      <span class="small muted" style="font-variant-numeric:tabular-nums">${flashIdx+1}/${pool.length}</span></div>
    <div class="flash">
      ${flashMode==="signs"?`<div><span class="sign">${item[0]}</span></div>`:`<div class="w">${item[0]}</div>`}
-     <div class="t" ${flashShow?"":"hidden"}>${item[1]}</div>
-     <div class="m" ${flashShow?"":"hidden"}>${item[2]}</div>
-     ${flashShow?"":`<p class="small muted">Read it out loud, then reveal.</p>`}
+     <div class="m">${item[2]}</div>
+     <div class="t" ${flashShow?"":"hidden"}>sounds like: ${item[1]}</div>
+     ${flashShow?"":`<p class="small muted">Read it out loud, then reveal how it sounds.</p>`}
    </div>
    <div class="row" style="justify-content:center">
      <button class="btn primary play" id="play">Listen</button>
@@ -483,8 +482,43 @@ function renderWords(){
   stage.appendChild(c);
   const h=document.createElement("p");h.className="small muted";h.textContent="Keys: Space = reveal · ← → = move · P = listen. Tap any card below to jump to it.";stage.appendChild(h);
   const deck=document.createElement("div");deck.className="deck";
-  pool.forEach((w,i)=>{const b=document.createElement("button");b.className="dw";b.innerHTML=`<b>${w[0]}</b><span>${w[2]}</span>`;b.onclick=()=>{flashIdx=i;flashShow=false;renderWords();say(flashMode==="signs"?w[0].toLowerCase():w[0],0.8);window.scrollTo({top:0,behavior:"smooth"})};deck.appendChild(b)});
+  pool.forEach((w,i)=>{const b=document.createElement("button");b.className="dw";b.innerHTML=`<b>${w[0]}</b><span>${w[2]}</span>`;b.onclick=()=>{flashIdx=i;flashShow=false;renderWords();say(flashMode==="signs"?w[0].toLowerCase():w[0],0.8)};deck.appendChild(b)});
   stage.appendChild(deck);
+}
+
+// ================= WORD QUIZ =================
+let wq=null;
+function startWordQuiz(){
+  const pool=shuffle([...allWords(),...LG.signs,...LG.phrases]).filter((w,i,a)=>a.findIndex(z=>z[0]===w[0])===i);
+  const types=["meaning","word","hear"];
+  wq={i:0,score:0,items:pool.slice(0,12).map((w,i)=>({w,type:types[i%3]})),pool};
+  renderWordQuiz();
+}
+function renderWordQuiz(){
+  stage.innerHTML="";document.onkeydown=null;
+  if(wq.i>=wq.items.length){
+    const c=document.createElement("div");c.className="card";
+    c.innerHTML=`<p class="eyebrow">Word quiz · ${LG.name}</p><h2 style="font-family:var(--display);margin:4px 0 10px">${wq.score}/${wq.items.length} correct</h2><div class="row"><button class="btn primary" id="again">Another round</button><button class="btn" id="w">Back to words</button></div>`;
+    c.querySelector("#again").onclick=startWordQuiz;c.querySelector("#w").onclick=()=>switchTab("words");stage.appendChild(c);return;
+  }
+  const it=wq.items[wq.i],[ru,tr,en]=it.w;
+  const c=document.createElement("div");c.className="card";
+  c.innerHTML=`<div class="q-top"><span class="eyebrow">Word quiz · ${LG.name} · ${wq.i+1}/${wq.items.length}</span><div class="progress"><i style="width:${wq.i/wq.items.length*100}%"></i></div><span class="small muted" style="font-variant-numeric:tabular-nums">${wq.score} ✓</span></div><div id="body"></div>`;
+  stage.appendChild(c);const body=c.querySelector("#body");
+  const next=()=>{wq.i++;renderWordQuiz()};
+  const finish=ok=>{if(ok)wq.score++;say(ru.toLowerCase(),0.8);feedbackBar(body,ok,`${ru} = ${en} (sounds like ${tr})`,next)};
+  const others=shuffle(wq.pool.filter(w=>w[0]!==ru&&w[2]!==en)).slice(0,3);
+  if(it.type==="meaning"){
+    body.innerHTML=`<div class="prompt"><p class="muted">What does this mean?</p><div class="mid">${ru}</div></div>`;
+    choiceGrid(body,shuffle([it.w,...others]),o=>o[2],o=>o[0]===ru,finish);
+  }else if(it.type==="word"){
+    body.innerHTML=`<div class="prompt"><p class="muted">Which word means this?</p><div class="mid">${en}</div></div>`;
+    const r=o=>o[0];r.cls="letter";choiceGrid(body,shuffle([it.w,...others]),r,o=>o[0]===ru,finish);
+  }else{
+    body.innerHTML=`<div class="prompt"><p class="muted">Listen. What does the word mean?</p><button class="btn primary play" id="again">Play again</button></div>`;
+    body.querySelector("#again").onclick=()=>say(ru.toLowerCase(),0.8);setTimeout(()=>say(ru.toLowerCase(),0.8),150);
+    choiceGrid(body,shuffle([it.w,...others]),o=>o[2],o=>o[0]===ru,finish);
+  }
 }
 
 // ================= STATS =================
