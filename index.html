@@ -88,7 +88,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid 
 .deck .dw{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;cursor:pointer;font:inherit;color:var(--fg);text-align:left}
 .deck .dw b{font-family:var(--display);font-weight:400;font-size:1.1rem}
 .deck .dw span{color:var(--muted);font-size:.85rem;overflow-wrap:anywhere}
-.voice{font-size:.8rem;color:var(--muted)}
+.voice{font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .sr-only{position:absolute;left:-9999px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -237,26 +237,43 @@ function buildLang(){
 buildLang();
 
 // ================= AUDIO =================
-let voice=null,voiceNote="";
+let voice=null,voiceNote="",voiceList=[],chosenVoice=null;
+try{chosenVoice=localStorage.getItem("azbuka-voice")}catch(e){}
 function pickVoice(){
   const vs=speechSynthesis.getVoices();if(!vs.length)return;
   const want=LG.voice.slice(0,2);
-  const exact=vs.filter(v=>v.lang.toLowerCase().startsWith(want));
-  const ru=vs.filter(v=>v.lang.toLowerCase().startsWith("ru"));
-  const best=a=>a.find(v=>/natural|premium|enhanced|google|neural/i.test(v.name))||a[0];
-  if(exact.length){voice=best(exact);voiceNote=`Voice: ${LG.name} (${voice.name})`}
-  else if(ru.length){voice=best(ru);voiceNote=langCode==="ru"?`Voice: ${voice.name}`:`No ${LG.name} voice on this device · using Russian voice (${voice.name}), extra letters approximate`}
-  else{voice=null;voiceNote="No Russian/Cyrillic voice found on this device · add one in your system settings"}
-  document.getElementById("voiceInfo").textContent=voiceNote;
+  // Cyrillic-capable voices first: this language, then Russian, then any other Cyrillic language. Local voices before cloud voices (cloud ones often fail silently on desktop Chrome).
+  const cyr=vs.filter(v=>/^(ru|kk|ky|uz|uk|be|bg|sr|mk|mn|tt|ba|tg)/i.test(v.lang));
+  const rank=v=>(v.lang.toLowerCase().startsWith(want)?0:v.lang.toLowerCase().startsWith("ru")?1:2)*10+(v.localService?0:5)+(/natural|neural|premium|enhanced/i.test(v.name)?-1:0);
+  voiceList=[...cyr].sort((a,b)=>rank(a)-rank(b));
+  const chosen=voiceList.find(v=>v.name===chosenVoice);
+  voice=chosen||voiceList[0]||null;
+  if(!voice)voiceNote="No Cyrillic voice on this device · add a Russian voice in system settings";
+  else voiceNote=(voice.lang.toLowerCase().startsWith(want)?"":`No ${LG.name} voice · `)+"Voice: "+voice.name+(voice.localService?"":" (online)");
+  renderVoiceInfo();
 }
-if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
+function renderVoiceInfo(){
+  const el=document.getElementById("voiceInfo");el.innerHTML="";
+  if(!voiceList.length){el.textContent=voiceNote;return}
+  const sel=document.createElement("select");sel.setAttribute("aria-label","voice");sel.style.maxWidth="220px";
+  voiceList.forEach(v=>{const o=document.createElement("option");o.value=v.name;o.textContent=`${v.name} (${v.lang})${v.localService?"":" · online"}`;if(v===voice)o.selected=true;sel.appendChild(o)});
+  sel.onchange=()=>{chosenVoice=sel.value;try{localStorage.setItem("azbuka-voice",chosenVoice)}catch(e){}pickVoice();say("Привет",0.9)};
+  const lab=document.createElement("span");lab.textContent=(voice.lang.toLowerCase().startsWith(LG.voice.slice(0,2))?"Voice: ":`No ${LG.name} voice, using: `);
+  const test=document.createElement("button");test.className="btn sm";test.textContent="Test";test.onclick=()=>say("Привет",0.9);
+  el.append(lab,sel," ",test);
+  const hint=document.createElement("div");hint.className="small muted";hint.textContent="No sound? Pick another voice. Voices marked “online” need internet and sometimes fail on desktop Chrome.";el.appendChild(hint);
+}
+if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;setTimeout(pickVoice,800)}
 else document.getElementById("voiceInfo").textContent="This browser has no speech audio";
 let slow=false;
 function say(text,rate){
   if(!("speechSynthesis" in window))return;
   speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);u.lang=voice?voice.lang:LG.voice;if(voice)u.voice=voice;
-  u.rate=(rate||0.85)*(slow?0.65:1);speechSynthesis.speak(u);
+  u.rate=(rate||0.85)*(slow?0.65:1);u.volume=1;
+  u.onerror=e=>{if(e.error&&e.error!=="interrupted"&&e.error!=="canceled"){const el=document.getElementById("voiceInfo");const w=document.createElement("div");w.className="small";w.style.color="var(--bad)";w.textContent="Audio error ("+e.error+") · try another voice";el.appendChild(w)}};
+  // Chrome sometimes starts paused; resume shortly after speak()
+  setTimeout(()=>{speechSynthesis.speak(u);setTimeout(()=>speechSynthesis.resume(),50)},30);
 }
 const VOWELS="аеёиоуыэюяәөұүіў";
 function saySound(x){
