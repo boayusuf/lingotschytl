@@ -14,6 +14,7 @@
 html,body{height:100%}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.45;margin:0;padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 .app{max-width:740px;margin:0 auto;display:flex;flex-direction:column;min-height:100%;gap:12px;padding-block:14px 24px}
 header{display:flex;flex-direction:column;gap:10px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -111,7 +112,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid 
       <nav>
         <button data-tab="learn" aria-current="true">Letters</button>
         <button data-tab="quiz">Quiz</button>
-        <button data-tab="review">Weak letters</button>
+        <button data-tab="letterquiz">Letter quiz</button>
         <button data-tab="words">Words &amp; signs</button>
         <button data-tab="wordquiz">Word quiz</button>
         <button data-tab="stats">Progress</button>
@@ -277,7 +278,11 @@ function say(text,rate){
   setTimeout(()=>{speechSynthesis.speak(u);setTimeout(()=>speechSynthesis.resume(),50)},30);
 }
 const VOWELS="аеёиоуыэюяәөұүіў";
-function saySound(x){ return say(x.group==="sign"&&langCode!=="uz"?x.name:x.l,0.7); }
+function saySound(x,withWord=true){
+  const name=x.group==="sign"&&langCode!=="uz"?x.name:x.l;
+  const w=withWord&&x.ex&&x.ex[0]?x.ex[0][0]:"";
+  return say(w?name+". "+w:name,0.75);
+}
 
 // ================= PROGRESS =================
 let prog={};
@@ -294,7 +299,7 @@ let tab="learn",current=null;
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;document.querySelectorAll("nav button").forEach(x=>x.setAttribute("aria-current",x===b));render()});
 document.getElementById("lang").onchange=e=>{langCode=e.target.value;try{localStorage.setItem("azbuka-lang",langCode)}catch(err){}buildLang();pickVoice();current=null;render()};
 function render(){if("speechSynthesis" in window)speechSynthesis.cancel();document.onkeydown=null;
-  if(tab==="learn")renderLearn();else if(tab==="quiz")startQuiz("mixed");else if(tab==="review")startQuiz("weak");else if(tab==="words")renderWords();else if(tab==="wordquiz")startWordQuiz();else renderStats()}
+  if(tab==="learn")renderLearn();else if(tab==="quiz")startQuiz("mixed");else if(tab==="letterquiz")startQuiz("letters");else if(tab==="words")renderWords();else if(tab==="wordquiz")startWordQuiz();else renderStats()}
 function slowToggle(){const b=document.createElement("button");b.className="btn sm";b.textContent=slow?"Speed: slow":"Speed: normal";b.onclick=()=>{slow=!slow;b.textContent=slow?"Speed: slow":"Speed: normal"};return b}
 
 function renderLearn(){
@@ -342,9 +347,9 @@ function detailCard(x){
 let quiz=null;
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function pickLetters(mode,n){
-  let pool=[...L];
-  if(mode==="weak"){pool.sort((a,b)=>weakness(b.l)-weakness(a.l));pool=pool.slice(0,12)}
-  const out=[];while(out.length<n){out.push(pool[Math.floor(Math.random()*pool.length)])}return out;
+  // weighted random: weak or never-tested letters come up more often
+  const weights=L.map(x=>weakness(x.l));const total=weights.reduce((a,b)=>a+b,0);
+  const out=[];while(out.length<n){let r=Math.random()*total;for(let i=0;i<L.length;i++){r-=weights[i];if(r<=0){out.push(L[i]);break}}}return out;
 }
 const NEAR={в:"бвфз",б:"бвдь",н:"ниปп",р:"рьяв",с:"сэоз",у:"учъүұ",х:"хжкһҳ",и:"инйі",й:"йи",ш:"шщц",щ:"щшц",ц:"цщш",е:"еёэ",ё:"ёеюо",э:"эеәё",я:"яр",ю:"юон",ы:"ыьъі",ь:"ьъы",ъ:"ъьы",з:"зэс",ж:"жхк",ч:"чу",л:"лпд",п:"плн",д:"дл",г:"гтғ",т:"тг",м:"мт",к:"кхқ",о:"осөў",а:"адә",ф:"фв",ә:"әаэ",ғ:"ғгх",қ:"қкх",ң:"ңнн",ө:"өоэ",ұ:"ұуү",ү:"үуұ",һ:"һхн",і:"іиы",ў:"ўуо",ҳ:"ҳхн"};
 function distractors(x,k){
@@ -355,7 +360,7 @@ function distractors(x,k){
 function allWords(){return L.flatMap(x=>x.ex||[])}
 function startQuiz(mode){
   const letters=pickLetters(mode,10);
-  const types=["hearLetter","seeLetter","readWord","hearWord","readSign","match"];
+  const types=mode==="letters"?["latin","cyrillic","hearName","nameOf","match"]:["hearLetter","seeLetter","readWord","hearWord","readSign","match"];
   quiz={mode,i:0,score:0,items:letters.map((x,i)=>({x,type:types[i%types.length]}))};
   shuffle(quiz.items);renderQuiz();
 }
@@ -385,7 +390,7 @@ function renderQuiz(){
   if(quiz.i>=quiz.items.length)return renderQuizEnd();
   const it=quiz.items[quiz.i],x=it.x;
   const c=document.createElement("div");c.className="card";
-  c.innerHTML=`<div class="q-top"><span class="eyebrow">${quiz.mode==="weak"?"Weak letters":"Quiz"} · ${LG.name} · ${quiz.i+1}/${quiz.items.length}</span><div class="progress"><i style="width:${quiz.i/quiz.items.length*100}%"></i></div><span class="small muted" style="font-variant-numeric:tabular-nums">${quiz.score} ✓</span></div><div id="body"></div>`;
+  c.innerHTML=`<div class="q-top"><span class="eyebrow">${quiz.mode==="letters"?"Letter quiz":"Quiz"} · ${LG.name} · ${quiz.i+1}/${quiz.items.length}</span><div class="progress"><i style="width:${quiz.i/quiz.items.length*100}%"></i></div><span class="small muted" style="font-variant-numeric:tabular-nums">${quiz.score} ✓</span></div><div id="body"></div>`;
   stage.appendChild(c);
   const body=c.querySelector("#body");
   const next=()=>{quiz.i++;renderQuiz()};
@@ -394,8 +399,21 @@ function renderQuiz(){
   const pickEx=()=>x.ex[Math.floor(Math.random()*x.ex.length)];
   if(it.type==="hearLetter"){
     body.innerHTML=`<div class="prompt"><p class="muted">Listen. Which letter is this?</p><button class="btn primary play" id="again">Play again</button></div>`;
-    body.querySelector("#again").onclick=()=>saySound(x);setTimeout(()=>saySound(x),150);
+    body.querySelector("#again").onclick=()=>saySound(x,false);setTimeout(()=>saySound(x,false),150);
     const r=o=>`${o.u}${o.l}`;r.cls="letter";choiceGrid(body,shuffle([x,...distractors(x,3)]),r,o=>o===x,ok=>finish(ok,explainLetter));
+  }else if(it.type==="latin"){
+    body.innerHTML=`<div class="prompt"><p class="muted">Which Latin letter(s) does this stand for?</p><div class="huge">${x.u}${x.l}</div></div>`;
+    const r=o=>ROMAN[o.l].toUpperCase();r.cls="letter";choiceGrid(body,shuffle([x,...distractors(x,3)]),r,o=>o===x,ok=>finish(ok,explainLetter));
+  }else if(it.type==="cyrillic"){
+    body.innerHTML=`<div class="prompt"><p class="muted">Which Cyrillic letter is this?</p><div class="huge">${ROMAN[x.l].toUpperCase()}</div><p class="small muted">${x.sound}</p></div>`;
+    const r=o=>`${o.u}${o.l}`;r.cls="letter";choiceGrid(body,shuffle([x,...distractors(x,3)]),r,o=>o===x,ok=>finish(ok,explainLetter));
+  }else if(it.type==="hearName"){
+    body.innerHTML=`<div class="prompt"><p class="muted">Listen to the letter's name. Which letter is it?</p><button class="btn primary play" id="again">Play again</button></div>`;
+    body.querySelector("#again").onclick=()=>say(x.name,0.75);setTimeout(()=>say(x.name,0.75),150);
+    const r=o=>`${o.u}${o.l}`;r.cls="letter";choiceGrid(body,shuffle([x,...distractors(x,3)]),r,o=>o===x,ok=>finish(ok,`${x.u}${x.l} is called "${x.name}"`));
+  }else if(it.type==="nameOf"){
+    body.innerHTML=`<div class="prompt"><p class="muted">What is this letter called in ${LG.name}?</p><div class="huge">${x.u}${x.l}</div></div>`;
+    choiceGrid(body,shuffle([x,...distractors(x,3)]),o=>o.name,o=>o===x,ok=>finish(ok,`${x.u}${x.l} is called "${x.name}" · ${x.sound}`,x.name));
   }else if(it.type==="seeLetter"){
     body.innerHTML=`<div class="prompt"><p class="muted">What sound does this letter make?</p><div class="huge">${x.u}${x.l}</div></div>`;
     choiceGrid(body,shuffle([x,...distractors(x,3)]),o=>o.sound,o=>o===x,ok=>finish(ok,explainLetter));
@@ -423,7 +441,7 @@ function renderQuiz(){
     const mk=(o,side)=>{const b=document.createElement("button");b.className="choice"+(side==="L"?" letter":"");b.innerHTML=side==="L"?`${o.u}${o.l}`:o.sound;b._o=o;b._side=side;
       b.onclick=()=>{if(b.disabled)return;if(side==="L"){pickL&&(pickL.style.borderColor="");pickL=b}else{pickS&&(pickS.style.borderColor="");pickS=b}b.style.borderColor="var(--accent)";
         if(pickL&&pickS){const ok=pickL._o===pickS._o;const a=pickL,c2=pickS;pickL=pickS=null;
-          if(ok){[a,c2].forEach(q=>{q.classList.add("ok");q.disabled=true;q.style.borderColor=""});saySound(a._o);done++;
+          if(ok){[a,c2].forEach(q=>{q.classList.add("ok");q.disabled=true;q.style.borderColor=""});saySound(a._o,false);done++;
             if(done===set.length){const ok2=wrong===0;set.forEach(y=>mark(y.l,ok2));if(ok2)quiz.score++;feedbackBar(body,ok2,ok2?"All pairs matched":`${wrong} wrong tap${wrong>1?"s":""}`,next)}}
           else{wrong++;[a,c2].forEach(q=>{q.classList.add("no");setTimeout(()=>{q.classList.remove("no");q.style.borderColor=""},500)})}}};
       return b};
@@ -436,9 +454,8 @@ function renderQuizEnd(){
   const missed=[...new Set(quiz.items.map(i=>i.x))].filter(x=>P(x.l).streak===0);
   c.innerHTML=`<p class="eyebrow">Round finished · ${LG.name}</p><h2 style="font-family:var(--display);margin:4px 0 10px">${s}/${n} correct</h2>
    ${missed.length?`<p class="muted">Still shaky: <b style="font-family:var(--display);font-size:1.2rem">${missed.map(x=>x.u+x.l).join("  ")}</b></p>`:`<p class="muted">Every letter in this round moved up a box.</p>`}
-   <div class="row"><button class="btn primary" id="again">Another round</button><button class="btn" id="weak">Drill weak letters</button><button class="btn" id="learn">Back to letters</button></div>`;
+   <div class="row"><button class="btn primary" id="again">Another round</button><button class="btn" id="learn">Back to letters</button></div>`;
   c.querySelector("#again").onclick=()=>startQuiz(quiz.mode);
-  c.querySelector("#weak").onclick=()=>startQuiz("weak");
   c.querySelector("#learn").onclick=()=>switchTab("learn");
   stage.innerHTML="";stage.appendChild(c);
 }
@@ -528,7 +545,7 @@ function renderStats(){
     <div class="stat"><div class="n">${seen}/${L.length}</div><div class="small muted">quizzed at least once</div></div>
     <div class="stat"><div class="n">${tot+totw?Math.round(tot/(tot+totw)*100):0}%</div><div class="small muted">accuracy</div></div>
    </div>
-   <p class="small muted" style="margin-top:12px">Each letter sits in a box 0–5. A right answer moves it up, a wrong one drops it to 0. "Weak letters" drills the worst ratio plus anything never tested. Weakest first below. Saved in this browser only, per language.</p>
+   <p class="small muted" style="margin-top:12px">Each letter sits in a box 0–5. A right answer moves it up, a wrong one drops it to 0. Weak and never-tested letters come up more often in both quizzes. Weakest first below. Saved in this browser only, per language.</p>
    <div class="grid" id="sg" style="margin-top:12px"></div>
    <div class="row" style="margin-top:14px"><button class="btn" id="reset">Reset ${LG.name} progress</button></div>`;
   const sg=c.querySelector("#sg");
