@@ -126,39 +126,39 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid 
 // ================= BASE: the 33 Russian letters =================
 // group: friend = looks & sounds like Latin; fake = looks Latin, sounds different; new = new shape; sign = no sound of its own
 const BASE = {
- а:{u:"А",name:"а",sound:"a as in father",ipa:"a",group:"friend",ru:[["мама","mama","mother"],["да","da","yes"],["банан","banan","banana"]],tip:"Unstressed, it relaxes to a short 'uh'."},
+ а:{u:"А",name:"а",sound:"a as in father",ipa:"a",group:"friend",ru:[["ма́ма","MA-ma","mother"],["да","da","yes"],["авто́бус","af-TO-bus","bus"]],tip:"Unstressed, it relaxes to a short 'uh'."},
  б:{u:"Б",name:"бэ",sound:"b as in bed",ipa:"b",group:"new",ru:[["брат","brat","brother"],["банк","bank","bank"],["хлеб","khlyep","bread"]],tip:"At the end of a word it sounds like 'p' (хлеб → khlyep)."},
- в:{u:"В",name:"вэ",sound:"v as in van",ipa:"v",group:"fake",ru:[["вода","vada","water"],["вино","vino","wine"],["Москва","Maskva","Moscow"]],tip:"Looks like B but is V. The most common trap."},
- г:{u:"Г",name:"гэ",sound:"g as in go",ipa:"ɡ",group:"new",ru:[["город","gorat","city"],["гол","gol","goal"],["друг","druk","friend"]],tip:"Always hard g, never 'j'. At word end → 'k'. In the ending -ого/-его it is pronounced 'v'."},
- д:{u:"Д",name:"дэ",sound:"d as in dog",ipa:"d",group:"new",ru:[["дом","dom","house"],["дата","data","date"],["сад","sat","garden"]],tip:"At word end → 't' (сад → sat)."},
- е:{u:"Е",name:"е",sound:"ye as in yes",ipa:"je",group:"fake",ru:[["нет","nyet","no"],["ем","yem","I eat"],["метро","mitro","metro"]],tip:"Not 'e'. After a consonant it softens that consonant: не = nye. Unstressed it sounds like 'i'."},
- ё:{u:"Ё",name:"ё",sound:"yo as in yoghurt",ipa:"jo",group:"new",ru:[["ёж","yozh","hedgehog"],["всё","fsyo","everything"],["ёлка","yolka","fir tree"]],tip:"Always stressed. Russians often write it as е, so learn the words where it hides."},
- ж:{u:"Ж",name:"жэ",sound:"zh as in measure",ipa:"ʐ",group:"new",ru:[["жук","zhuk","beetle"],["жена","zhyna","wife"],["нож","nosh","knife"]],tip:"Like the 's' in 'pleasure' with the tongue curled back. Word end → 'sh'."},
- з:{u:"З",name:"зэ",sound:"z as in zoo",ipa:"z",group:"new",ru:[["зима","zima","winter"],["зуб","zup","tooth"],["роза","roza","rose"]],tip:"Looks like a 3 but is a letter. Word end → 's'."},
- и:{u:"И",name:"и",sound:"ee as in see",ipa:"i",group:"new",ru:[["и","i","and"],["мир","mir","world / peace"],["кино","kino","cinema"]],tip:"A backwards N. Softens the consonant before it."},
- й:{u:"Й",name:"и краткое",sound:"y as in boy",ipa:"j",group:"new",ru:[["мой","moy","my"],["чай","chay","tea"],["йогурт","yogurt","yoghurt"]],tip:"'Short i'. Only a glide, mostly at the end of syllables."},
- к:{u:"К",name:"ка",sound:"k as in kite",ipa:"k",group:"friend",ru:[["кот","kot","cat"],["как","kak","how"],["карта","karta","map"]],tip:"No puff of air after it, unlike English k."},
- л:{u:"Л",name:"эль",sound:"l as in lamp",ipa:"ɫ",group:"new",ru:[["лампа","lampa","lamp"],["луна","luna","moon"],["стол","stol","table"]],tip:"Dark 'l' (like in 'pull'), unless followed by a softening vowel."},
- м:{u:"М",name:"эм",sound:"m as in mother",ipa:"m",group:"friend",ru:[["мост","most","bridge"],["музыка","muzyka","music"],["дом","dom","house"]],tip:""},
- н:{u:"Н",name:"эн",sound:"n as in no",ipa:"n",group:"fake",ru:[["нос","nos","nose"],["нет","nyet","no"],["она","ana","she"]],tip:"Looks like H but is N."},
- о:{u:"О",name:"о",sound:"o as in more",ipa:"o",group:"friend",ru:[["он","on","he"],["окно","akno","window"],["хорошо","kharasho","good"]],tip:"Only 'o' when stressed. Unstressed it becomes 'a' (хорошо → kharasho)."},
- п:{u:"П",name:"пэ",sound:"p as in pen",ipa:"p",group:"new",ru:[["папа","papa","dad"],["парк","park","park"],["суп","sup","soup"]],tip:"Looks like Greek pi."},
- р:{u:"Р",name:"эр",sound:"rolled r",ipa:"r",group:"fake",ru:[["рука","ruka","hand"],["рыба","ryba","fish"],["март","mart","March"]],tip:"Looks like P but is a rolled R."},
- с:{u:"С",name:"эс",sound:"s as in sun",ipa:"s",group:"fake",ru:[["сок","sok","juice"],["сыр","syr","cheese"],["нос","nos","nose"]],tip:"Looks like C but is always S, never K."},
- т:{u:"Т",name:"тэ",sound:"t as in top",ipa:"t",group:"friend",ru:[["там","tam","there"],["ты","ty","you"],["кот","kot","cat"]],tip:"Cursive т looks like Latin m. Watch for it."},
- у:{u:"У",name:"у",sound:"oo as in moon",ipa:"u",group:"fake",ru:[["ум","um","mind"],["утро","utra","morning"],["суп","sup","soup"]],tip:"Looks like Y but is OO."},
- ф:{u:"Ф",name:"эф",sound:"f as in fun",ipa:"f",group:"new",ru:[["фото","fota","photo"],["фильм","film","film"],["кофе","kofe","coffee"]],tip:"Rare in native words, common in loanwords."},
- х:{u:"Х",name:"ха",sound:"harsh h from the throat (German Bach)",ipa:"x",group:"fake",ru:[["хлеб","khlyep","bread"],["хорошо","kharasho","good"],["ухо","ukha","ear"]],tip:"Looks like X but is a rough h from the back of the throat, as in German 'Bach'. Never 'ks'."},
- ц:{u:"Ц",name:"цэ",sound:"ts as in cats",ipa:"ts",group:"new",ru:[["цирк","tsirk","circus"],["центр","tsentr","centre"],["отец","atyets","father"]],tip:"One sound, like German z."},
- ч:{u:"Ч",name:"че",sound:"ch as in chat",ipa:"tɕ",group:"new",ru:[["чай","chay","tea"],["час","chas","hour"],["ночь","noch","night"]],tip:"Looks like a 4. In что and конечно it is pronounced 'sh'."},
- ш:{u:"Ш",name:"ша",sound:"sh as in shop",ipa:"ʂ",group:"new",ru:[["шар","shar","ball"],["школа","shkola","school"],["наш","nash","our"]],tip:"Hard sh, tongue curled back."},
- щ:{u:"Щ",name:"ща",sound:"long soft shch",ipa:"ɕː",group:"new",ru:[["щука","shchuka","pike"],["борщ","borshch","borscht"],["ещё","yishcho","still / more"]],tip:"Not ш. Softer and longer, like 'fresh sheets' said fast."},
- ъ:{u:"Ъ",name:"твёрдый знак",sound:"hard sign (no sound)",ipa:"—",group:"sign",ru:[["объект","abyekt","object"],["подъезд","padyezd","entrance"],["съесть","syest","to eat up"]],tip:"Separates a consonant from a 'y'-vowel so you hear the 'y'. Rare."},
+ в:{u:"В",name:"вэ",sound:"v as in van",ipa:"v",group:"fake",ru:[["вода́","va-DA","water"],["вход","fkhot","entrance"],["вино́","vi-NO","wine"]],tip:"Looks like B but is V. The most common trap."},
+ г:{u:"Г",name:"гэ",sound:"g as in go",ipa:"ɡ",group:"new",ru:[["го́род","GO-rat","city"],["газе́та","ga-ZYE-ta","newspaper"],["друг","druk","friend"]],tip:"Always hard g, never 'j'. At word end → 'k'. In the ending -ого/-его it is pronounced 'v'."},
+ д:{u:"Д",name:"дэ",sound:"d as in dog",ipa:"d",group:"new",ru:[["дом","dom","house"],["доро́га","da-RO-ga","road"],["еда́","ye-DA","food"]],tip:"At word end → 't' (сад → sat)."},
+ е:{u:"Е",name:"е",sound:"ye as in yes",ipa:"je",group:"fake",ru:[["нет","nyet","no"],["метро́","mi-TRO","metro"],["где","gdye","where"]],tip:"Not 'e'. After a consonant it softens that consonant: не = nye. Unstressed it sounds like 'i'."},
+ ё:{u:"Ё",name:"ё",sound:"yo as in yoghurt",ipa:"jo",group:"new",ru:[["всё","fsyo","everything"],["мёд","myot","honey"],["тётя","TYO-tya","aunt"]],tip:"Always stressed. Russians often write it as е, so learn the words where it hides."},
+ ж:{u:"Ж",name:"жэ",sound:"zh as in measure",ipa:"ʐ",group:"new",ru:[["жена́","zhy-NA","wife"],["мо́жно","MOZH-na","may I / allowed"],["нож","nosh","knife"]],tip:"Like the 's' in 'pleasure' with the tongue curled back. Word end → 'sh'."},
+ з:{u:"З",name:"зэ",sound:"z as in zoo",ipa:"z",group:"new",ru:[["зима́","zi-MA","winter"],["за́втрак","ZAF-trak","breakfast"],["музе́й","mu-ZYEY","museum"]],tip:"Looks like a 3 but is a letter. Word end → 's'."},
+ и:{u:"И",name:"и",sound:"ee as in see",ipa:"i",group:"new",ru:[["и","i","and"],["мир","mir","world / peace"],["кино́","ki-NO","cinema"]],tip:"A backwards N. Softens the consonant before it."},
+ й:{u:"Й",name:"и краткое",sound:"y as in boy",ipa:"j",group:"new",ru:[["мой","moy","my"],["чай","chay","tea"],["музе́й","mu-ZYEY","museum"]],tip:"'Short i'. Only a glide, mostly at the end of syllables."},
+ к:{u:"К",name:"ка",sound:"k as in kite",ipa:"k",group:"friend",ru:[["кот","kot","cat"],["как","kak","how"],["ко́фе","KO-fye","coffee"]],tip:"No puff of air after it, unlike English k."},
+ л:{u:"Л",name:"эль",sound:"l as in lamp",ipa:"ɫ",group:"new",ru:[["лук","luk","onion"],["у́лица","U-li-tsa","street"],["стол","stol","table"]],tip:"Dark 'l' (like in 'pull'), unless followed by a softening vowel."},
+ м:{u:"М",name:"эм",sound:"m as in mother",ipa:"m",group:"friend",ru:[["мост","most","bridge"],["молоко́","ma-la-KO","milk"],["мя́со","MYA-sa","meat"]],tip:""},
+ н:{u:"Н",name:"эн",sound:"n as in no",ipa:"n",group:"fake",ru:[["нале́во","na-LYE-va","to the left"],["нет","nyet","no"],["напра́во","na-PRA-va","to the right"]],tip:"Looks like H but is N."},
+ о:{u:"О",name:"о",sound:"o as in more",ipa:"o",group:"friend",ru:[["он","on","he"],["окно́","ak-NO","window"],["хорошо́","kha-ra-SHO","good / OK"]],tip:"Only 'o' when stressed. Unstressed it becomes 'a' (хорошо → kharasho)."},
+ п:{u:"П",name:"пэ",sound:"p as in pen",ipa:"p",group:"new",ru:[["па́па","PA-pa","dad"],["пря́мо","PRYA-ma","straight ahead"],["суп","sup","soup"]],tip:"Looks like Greek pi."},
+ р:{u:"Р",name:"эр",sound:"rolled r",ipa:"r",group:"fake",ru:[["рука́","ru-KA","hand"],["ры́ба","RY-ba","fish"],["рестора́н","ri-sta-RAN","restaurant"]],tip:"Looks like P but is a rolled R."},
+ с:{u:"С",name:"эс",sound:"s as in sun",ipa:"s",group:"fake",ru:[["сок","sok","juice"],["сыр","syr","cheese"],["спаси́бо","spa-SI-ba","thank you"]],tip:"Looks like C but is always S, never K."},
+ т:{u:"Т",name:"тэ",sound:"t as in top",ipa:"t",group:"friend",ru:[["там","tam","there"],["ты","ty","you"],["туале́т","tu-a-LYET","toilet"]],tip:"Cursive т looks like Latin m. Watch for it."},
+ у:{u:"У",name:"у",sound:"oo as in moon",ipa:"u",group:"fake",ru:[["у́лица","U-li-tsa","street"],["у́тро","U-tra","morning"],["суп","sup","soup"]],tip:"Looks like Y but is OO."},
+ ф:{u:"Ф",name:"эф",sound:"f as in fun",ipa:"f",group:"new",ru:[["фо́то","FO-ta","photo"],["фру́кты","FRUK-ty","fruit"],["ко́фе","KO-fye","coffee"]],tip:"Rare in native words, common in loanwords."},
+ х:{u:"Х",name:"ха",sound:"harsh h from the throat (German Bach)",ipa:"x",group:"fake",ru:[["хлеб","khlyep","bread"],["хорошо́","kha-ra-SHO","good / OK"],["вход","fkhot","entrance"]],tip:"Looks like X but is a rough h from the back of the throat, as in German 'Bach'. Never 'ks'."},
+ ц:{u:"Ц",name:"цэ",sound:"ts as in cats",ipa:"ts",group:"new",ru:[["цена́","tsy-NA","price"],["центр","tsentr","centre"],["у́лица","U-li-tsa","street"]],tip:"One sound, like German z."},
+ ч:{u:"Ч",name:"че",sound:"ch as in chat",ipa:"tɕ",group:"new",ru:[["чай","chay","tea"],["час","chas","hour"],["по́чта","POCH-ta","post office"]],tip:"Looks like a 4. In что and конечно it is pronounced 'sh'."},
+ ш:{u:"Ш",name:"ша",sound:"sh as in shop",ipa:"ʂ",group:"new",ru:[["шко́ла","SHKO-la","school"],["шокола́д","sha-ka-LAT","chocolate"],["наш","nash","our"]],tip:"Hard sh, tongue curled back."},
+ щ:{u:"Щ",name:"ща",sound:"long soft shch",ipa:"ɕː",group:"new",ru:[["щи","shchi","cabbage soup"],["борщ","borshch","borscht"],["пло́щадь","PLO-shchat'","square (in a city)"]],tip:"Not ш. Softer and longer, like 'fresh sheets' said fast."},
+ ъ:{u:"Ъ",name:"твёрдый знак",sound:"hard sign (no sound)",ipa:"—",group:"sign",ru:[["подъе́зд","pad-YEZD","building entrance"],["съесть","syest'","to eat up"]],tip:"Separates a consonant from a 'y'-vowel so you hear the 'y'. Rare."},
  ы:{u:"Ы",name:"ы",sound:"i as in ill, said deep",ipa:"ɨ",group:"new",ru:[["мы","my","we"],["ты","ty","you"],["сыр","syr","cheese"]],tip:"Say 'ee' while pulling the tongue back. Never starts a Russian word."},
- ь:{u:"Ь",name:"мягкий знак",sound:"soft sign (no sound)",ipa:"ʲ",group:"sign",ru:[["мать","mat'","mother"],["день","dyen'","day"],["очень","ochin'","very"]],tip:"Softens the consonant before it, as if a tiny 'y' is glued on."},
- э:{u:"Э",name:"э",sound:"e as in bed",ipa:"ɛ",group:"new",ru:[["это","eta","this"],["эхо","ekha","echo"],["поэт","paet","poet"]],tip:"The plain 'e'. Mostly at the start of words and in loanwords."},
- ю:{u:"Ю",name:"ю",sound:"yu as in you",ipa:"ju",group:"new",ru:[["юг","yuk","south"],["люблю","lyublyu","I love"],["меню","minyu","menu"]],tip:"After a consonant it just softens it: лю = lyu."},
- я:{u:"Я",name:"я",sound:"ya as in yard",ipa:"ja",group:"new",ru:[["я","ya","I"],["яблоко","yablaka","apple"],["мясо","myasa","meat"]],tip:"A backwards R. Unstressed it drifts towards 'i'."}
+ ь:{u:"Ь",name:"мягкий знак",sound:"soft sign (no sound)",ipa:"ʲ",group:"sign",ru:[["соль","sol'","salt"],["день","dyen'","day"],["о́чень","O-chin'","very"]],tip:"Softens the consonant before it, as if a tiny 'y' is glued on."},
+ э:{u:"Э",name:"э",sound:"e as in bed",ipa:"ɛ",group:"new",ru:[["э́то","E-ta","this"],["эта́ж","e-TASH","floor (of a building)"],["аэропо́рт","a-e-ra-PORT","airport"]],tip:"The plain 'e'. Mostly at the start of words and in loanwords."},
+ ю:{u:"Ю",name:"ю",sound:"yu as in you",ipa:"ju",group:"new",ru:[["юг","yuk","south"],["люблю́","lyu-BLYU","I love"],["меню́","mi-NYU","menu"]],tip:"After a consonant it just softens it: лю = lyu."},
+ я:{u:"Я",name:"я",sound:"ya as in yard",ipa:"ja",group:"new",ru:[["я","ya","I"],["я́блоко","YA-bla-ka","apple"],["мя́со","MYA-sa","meat"]],tip:"A backwards R. Unstressed it drifts towards 'i'."}
 };
 const RU_ORDER="абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 const LOAN="Only in words borrowed from Russian.";
@@ -168,7 +168,7 @@ const LOAN="Only in words borrowed from Russian.";
 const LANGS = {
  ru:{name:"Russian",voice:"ru-RU",letters:RU_ORDER.split(""),extra:{},words:{},tips:{},sounds:{},
    intro:"33 letters. Stress moves the vowels around: unstressed о sounds like a, unstressed е/я like i.",
-   signs:[["ВХОД","vkhot","entrance"],["ВЫХОД","vykhat","exit"],["МЕТРО","mitro","metro"],["КАССА","kassa","ticket desk"],["АПТЕКА","aptyeka","pharmacy"],["МАГАЗИН","magazin","shop"],["РЕСТОРАН","ristaran","restaurant"],["ТУАЛЕТ","tualyet","toilet"],["ОТКРЫТО","atkryta","open"],["ЗАКРЫТО","zakryta","closed"],["ВОКЗАЛ","vagzal","railway station"],["АЭРОПОРТ","aeraport","airport"],["БАНК","bank","bank"],["ТАКСИ","taksi","taxi"],["ПОЛИЦИЯ","palitsiya","police"],["БОЛЬНИЦА","bal'nitsa","hospital"]],
+   signs:[["ВХОД","vkhot","entrance"],["ВЫХОД","VY-khat","exit"],["МЕТРО","mitro","metro"],["КАССА","kassa","ticket desk"],["АПТЕКА","ap-TYE-ka","pharmacy"],["МАГАЗИН","magazin","shop"],["РЕСТОРАН","ristaran","restaurant"],["ТУАЛЕТ","tualyet","toilet"],["ОТКРЫТО","atkryta","open"],["ЗАКРЫТО","zakryta","closed"],["ВОКЗАЛ","vagzal","railway station"],["АЭРОПОРТ","aeraport","airport"],["БАНК","bank","bank"],["ТАКСИ","taksi","taxi"],["ПОЛИЦИЯ","palitsiya","police"],["БОЛЬНИЦА","bal'nitsa","hospital"]],
    phrases:[["Привет","privyet","Hi"],["Здравствуйте","zdrastvuyte","Hello (polite)"],["Спасибо","spasiba","Thank you"],["Пожалуйста","pazhalusta","Please / you're welcome"],["Да","da","Yes"],["Нет","nyet","No"],["Как дела?","kak dila","How are you?"],["Хорошо","kharasho","Good"],["Меня зовут…","minya zavut","My name is…"],["Я не понимаю","ya ni panimayu","I don't understand"],["Сколько стоит?","skol'ka stoit","How much is it?"],["До свидания","da svidaniya","Goodbye"]]},
 
  kk:{name:"Kazakh",voice:"kk-KZ",letters:"аәбвгғдеёжзийкқлмнңоөпрстуұүфхһцчшщъыіьэюя".split(""),
@@ -270,18 +270,14 @@ let slow=false;
 function say(text,rate){
   if(!("speechSynthesis" in window))return;
   speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);u.lang=voice?voice.lang:LG.voice;if(voice)u.voice=voice;
+  const u=new SpeechSynthesisUtterance(String(text).replace(/\u0301/g,""));u.lang=voice?voice.lang:LG.voice;if(voice)u.voice=voice;
   u.rate=(rate||0.85)*(slow?0.65:1);u.volume=1;
-  u.onerror=e=>{if(e.error&&e.error!=="interrupted"&&e.error!=="canceled"){const el=document.getElementById("voiceInfo");const w=document.createElement("div");w.className="small";w.style.color="var(--bad)";w.textContent="Audio error ("+e.error+") · try another voice";el.appendChild(w)}};
+  u.onerror=e=>{if(e.error&&e.error!=="interrupted"&&e.error!=="canceled"){const el=document.getElementById("voiceInfo");let w=el.querySelector(".err");if(!w){w=document.createElement("div");w.className="small err";w.style.color="var(--bad)";el.appendChild(w)}w.textContent="Audio error ("+e.error+") · try another voice"}};
   // Chrome sometimes starts paused; resume shortly after speak()
   setTimeout(()=>{speechSynthesis.speak(u);setTimeout(()=>speechSynthesis.resume(),50)},30);
 }
 const VOWELS="аеёиоуыэюяәөұүіў";
-function saySound(x){
-  if(x.group==="sign"&&langCode!=="uz")return say(x.name);
-  if(VOWELS.includes(x.l))return say(x.l,0.7);
-  return say(x.l+"а",0.7);
-}
+function saySound(x){ return say(x.group==="sign"&&langCode!=="uz"?x.name:x.l,0.7); }
 
 // ================= PROGRESS =================
 let prog={};
@@ -325,13 +321,12 @@ function detailCard(x){
      <div class="glyphs"><div class="print">${x.u}${x.l}</div><div class="cursive">${x.u}${x.l}</div><span class="small muted">print · italic</span></div>
      <div>
        <dl class="kv"><dt>Name</dt><dd>${x.name}</dd><dt>Sound</dt><dd>${x.sound}</dd><dt>IPA</dt><dd class="ipa">[${x.ipa}]</dd></dl>
-       <div class="row" style="margin-top:10px"><button class="btn primary play" id="pname">Name</button><button class="btn play" id="psound">Sound</button><span id="slow"></span></div>
+       <div class="row" style="margin-top:10px"><button class="btn primary play" id="pname">Play letter</button><span id="slow"></span></div>
        <div class="words" id="words"></div>
        ${x.tip?`<div class="tip" style="margin-top:12px">${x.tip}</div>`:""}
      </div>
    </div>`;
-  c.querySelector("#pname").onclick=()=>say(x.name);
-  c.querySelector("#psound").onclick=()=>saySound(x);
+  c.querySelector("#pname").onclick=()=>saySound(x);
   c.querySelector("#slow").appendChild(slowToggle());
   const w=c.querySelector("#words");
   (x.ex||[]).forEach(([ru,tr,en])=>{const d=document.createElement("div");d.className="word";
@@ -376,7 +371,10 @@ function choiceGrid(body,opts,render,isRight,onDone){
   body.appendChild(g);body.appendChild(check);
   document.onkeydown=e=>{const n=parseInt(e.key);if(n>=1&&n<=opts.length)g.querySelectorAll(".choice")[n-1].click();else if(e.key==="Enter"&&!check.hidden)check.click()};
 }
-function feedbackBar(body,ok,explain,next){
+let actx=null;
+function ding(ok){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();const t=actx.currentTime;
+  const notes=ok?[[523,0],[784,0.12]]:[[196,0]];notes.forEach(([f,d])=>{const o=actx.createOscillator(),g=actx.createGain();o.type=ok?"sine":"triangle";o.frequency.value=f;g.gain.setValueAtTime(0.0001,t+d);g.gain.exponentialRampToValueAtTime(0.25,t+d+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+d+(ok?0.35:0.3));o.connect(g).connect(actx.destination);o.start(t+d);o.stop(t+d+0.4)})}catch(e){}}
+function feedbackBar(body,ok,explain,next){ding(ok);
   const f=document.createElement("div");f.className="feedback "+(ok?"ok":"no");
   f.innerHTML=`<span><b>${ok?"Correct":"Not quite"}</b> · ${explain}</span><button class="btn primary" id="cont">Continue</button>`;
   body.appendChild(f);const btn=f.querySelector("#cont");btn.focus();btn.onclick=next;
@@ -461,26 +459,23 @@ function renderWords(){
      <span class="small muted" style="font-variant-numeric:tabular-nums">${flashIdx+1}/${pool.length}</span></div>
    <div class="flash">
      ${flashMode==="signs"?`<div><span class="sign">${item[0]}</span></div>`:`<div class="w">${item[0]}</div>`}
+     <div class="t">${item[1]}</div>
      <div class="m">${item[2]}</div>
-     <div class="t" ${flashShow?"":"hidden"}>sounds like: ${item[1]}</div>
-     ${flashShow?"":`<p class="small muted">Read it out loud, then reveal how it sounds.</p>`}
    </div>
    <div class="row" style="justify-content:center">
      <button class="btn primary play" id="play">Listen</button>
-     <button class="btn" id="reveal">${flashShow?"Hide":"Reveal"}</button>
      <button class="btn" id="prevw">‹</button><button class="btn" id="nextw">›</button>
      <button class="btn" id="shuf">Shuffle</button><span id="slow"></span>
    </div>`;
   c.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{flashMode=b.dataset.m;flashIdx=0;flashShow=false;renderWords()});
   c.querySelector("#play").onclick=()=>say(flashMode==="signs"?item[0].toLowerCase():item[0],0.8);
-  c.querySelector("#reveal").onclick=()=>{flashShow=!flashShow;renderWords()};
-  c.querySelector("#prevw").onclick=()=>{flashIdx=(flashIdx+pool.length-1)%pool.length;flashShow=false;renderWords()};
+    c.querySelector("#prevw").onclick=()=>{flashIdx=(flashIdx+pool.length-1)%pool.length;flashShow=false;renderWords()};
   c.querySelector("#nextw").onclick=()=>{flashIdx=(flashIdx+1)%pool.length;flashShow=false;renderWords()};
   c.querySelector("#shuf").onclick=()=>{flashIdx=Math.floor(Math.random()*pool.length);flashShow=false;renderWords()};
   c.querySelector("#slow").appendChild(slowToggle());
-  document.onkeydown=e=>{if(e.key===" "){e.preventDefault();c.querySelector("#reveal").click()}else if(e.key==="ArrowRight")c.querySelector("#nextw").click();else if(e.key==="ArrowLeft")c.querySelector("#prevw").click();else if(e.key.toLowerCase()==="p")c.querySelector("#play").click()};
+  document.onkeydown=e=>{if(e.key==="ArrowRight")c.querySelector("#nextw").click();else if(e.key==="ArrowLeft")c.querySelector("#prevw").click();else if(e.key.toLowerCase()==="p")c.querySelector("#play").click()};
   stage.appendChild(c);
-  const h=document.createElement("p");h.className="small muted";h.textContent="Keys: Space = reveal · ← → = move · P = listen. Tap any card below to jump to it.";stage.appendChild(h);
+  const h=document.createElement("p");h.className="small muted";h.textContent="Keys: ← → = move · P = listen. Tap any card below to jump to it. CAPITALS = stressed syllable.";stage.appendChild(h);
   const deck=document.createElement("div");deck.className="deck";
   pool.forEach((w,i)=>{const b=document.createElement("button");b.className="dw";b.innerHTML=`<b>${w[0]}</b><span>${w[2]}</span>`;b.onclick=()=>{flashIdx=i;flashShow=false;renderWords();say(flashMode==="signs"?w[0].toLowerCase():w[0],0.8)};deck.appendChild(b)});
   stage.appendChild(deck);
